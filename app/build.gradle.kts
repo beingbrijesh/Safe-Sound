@@ -18,7 +18,7 @@ android {
         versionCode = 1
         versionName = "0.1.0"
 
-        buildConfigField("String", "SPEC_BACKEND_URL", "\"https://api.safesound.local\"")
+        buildConfigField("String", "SPEC_BACKEND_URL", "\"https://safe-sound.onrender.com\"")
 
         vectorDrawables {
             useSupportLibrary = true
