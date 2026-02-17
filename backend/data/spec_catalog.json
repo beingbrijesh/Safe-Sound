@@ -110,5 +110,19 @@
     "sourceName": "Nothing",
     "sourceUrl": "https://us.nothing.tech/products/ear-2",
     "verified": true
+  },
+  {
+    "brand": "realme",
+    "model": "Buds T300",
+    "aliases": ["realme buds t300", "buds t300", "realme t300"],
+    "driverSizeMm": 12.4,
+    "frequencyLowHz": null,
+    "frequencyHighHz": null,
+    "impedanceOhm": null,
+    "sensitivityDb": null,
+    "powerMw": null,
+    "sourceName": "realme",
+    "sourceUrl": "https://www.realme.com/in/realme-buds-t300",
+    "verified": true
   }
 ]

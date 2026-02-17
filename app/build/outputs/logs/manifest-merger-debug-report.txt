@@ -145,7 +145,6 @@ ADDED from /Users/beingbrijesh/Documents/New project/app/src/main/AndroidManifes
 application
 ADDED from /Users/beingbrijesh/Documents/New project/app/src/main/AndroidManifest.xml:14:5-49:19
 INJECTED from /Users/beingbrijesh/Documents/New project/app/src/main/AndroidManifest.xml:14:5-49:19
-INJECTED from /Users/beingbrijesh/Documents/New project/app/src/main/AndroidManifest.xml:14:5-49:19
 MERGED from [com.google.android.material:material:1.12.0] /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/50bffe10d2b969fcc611d892de0963c3/transformed/material-1.12.0/AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.12.0] /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/50bffe10d2b969fcc611d892de0963c3/transformed/material-1.12.0/AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/d74a799ecb4aea3cf648564438aacd9e/transformed/constraintlayout-2.0.1/AndroidManifest.xml:9:5-20
@@ -180,8 +179,6 @@ MERGED from [org.tensorflow:tensorflow-lite-api:2.16.1] /Users/beingbrijesh/.gra
 		ADDED from /Users/beingbrijesh/Documents/New project/app/src/main/AndroidManifest.xml:19:9-35
 	android:label
 		ADDED from /Users/beingbrijesh/Documents/New project/app/src/main/AndroidManifest.xml:16:9-41
-	android:testOnly
-		INJECTED from /Users/beingbrijesh/Documents/New project/app/src/main/AndroidManifest.xml
 	android:roundIcon
 		ADDED from /Users/beingbrijesh/Documents/New project/app/src/main/AndroidManifest.xml:18:9-50
 	android:icon

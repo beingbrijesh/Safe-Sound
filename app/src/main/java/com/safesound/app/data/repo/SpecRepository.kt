@@ -37,7 +37,18 @@ class SpecRepository(
         val normalizedName = DeviceNameParser.normalize(device.name)
         val existingDevice = deviceDao.get(device.address)
         if (existingDevice?.specId != null) {
-            return earphoneSpecDao.getById(existingDevice.specId)
+            val cachedSpec = earphoneSpecDao.getById(existingDevice.specId)
+            if (cachedSpec != null && isSpecCompatible(normalizedName, cachedSpec)) {
+                return cachedSpec
+            }
+            deviceDao.upsert(
+                existingDevice.copy(
+                    name = device.name,
+                    lastSeenMillis = System.currentTimeMillis(),
+                    isConnected = device.isConnected,
+                    specId = null
+                )
+            )
         }
 
         val specFromName = earphoneSpecDao.findByDisplayName(normalizedName)
@@ -93,5 +104,25 @@ class SpecRepository(
             "No official specs found for ${device.name}"
         )
         return null
+    }
+
+    private fun isSpecCompatible(deviceName: String, spec: EarphoneSpecEntity): Boolean {
+        val deviceTokens = tokenize(deviceName)
+        val specTokens = tokenize(
+            listOfNotNull(spec.displayName, spec.brand, spec.model).joinToString(" ")
+        )
+        if (deviceTokens.isEmpty() || specTokens.isEmpty()) return false
+
+        val overlap = deviceTokens.count { it in specTokens }
+        return overlap >= 2
+    }
+
+    private fun tokenize(value: String): Set<String> {
+        return value.lowercase()
+            .replace("[^a-z0-9]+".toRegex(), " ")
+            .trim()
+            .split(" ")
+            .filter { it.length > 1 }
+            .toSet()
     }
 }

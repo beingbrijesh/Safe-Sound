@@ -27,6 +27,8 @@ type CatalogSpec = Omit<SpecResult, "verified"> & {
 
 const catalogPath = path.resolve(process.cwd(), "data", "spec_catalog.json");
 const catalog: CatalogSpec[] = JSON.parse(readFileSync(catalogPath, "utf-8"));
+const knownBrands = Array.from(new Set(catalog.map((spec) => normalize(spec.brand))));
+const MIN_CONFIDENCE_SCORE = 400;
 
 function normalize(value: string): string {
   return value.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
@@ -76,10 +78,12 @@ export async function fetchOfficialSpecs(query: string): Promise<SpecResult | nu
   if (queryNormalized.length < 2) return null;
 
   const queryTokens = tokenize(queryNormalized);
+  const requestedBrand = knownBrands.find((brand) => queryNormalized.includes(brand)) ?? null;
   let bestMatch: CatalogSpec | null = null;
   let bestScore = 0;
 
   for (const spec of catalog) {
+    if (requestedBrand && normalize(spec.brand) !== requestedBrand) continue;
     const score = scoreSpec(queryNormalized, queryTokens, spec);
     if (score > bestScore) {
       bestScore = score;
@@ -87,7 +91,7 @@ export async function fetchOfficialSpecs(query: string): Promise<SpecResult | nu
     }
   }
 
-  if (!bestMatch || bestScore < 200) return null;
+  if (!bestMatch || bestScore < MIN_CONFIDENCE_SCORE) return null;
   if (!isOfficialSource(bestMatch.sourceUrl)) return null;
 
   return {
