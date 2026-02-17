@@ -1,6 +1,138 @@
 [
     {
-        "merged": "com.safesound.app-debug-63:/drawable_ic_launcher.xml.flat",
-        "source": "com.safesound.app-main-65:/drawable/ic_launcher.xml"
+        "merged": "/Users/beingbrijesh/.gradle/daemon/9.1.0/com.safesound.app-debug-63:/drawable_ic_launcher_background.xml.flat",
+        "source": "/Users/beingbrijesh/.gradle/daemon/9.1.0/com.safesound.app-main-65:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "com.safesound.app-debug-63:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "com.safesound.app-main-65:/mipmap-hdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/Users/beingbrijesh/.gradle/daemon/9.1.0/com.safesound.app-debug-63:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "/Users/beingbrijesh/.gradle/daemon/9.1.0/com.safesound.app-main-65:/mipmap-xhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.safesound.app-debug-63:/mipmap-xxxhdpi_ic_launcher_foreground.webp.flat",
+        "source": "com.safesound.app-main-65:/mipmap-xxxhdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "com.safesound.app-debug-63:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "com.safesound.app-main-65:/mipmap-hdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/Users/beingbrijesh/.gradle/daemon/9.1.0/com.safesound.app-debug-63:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/beingbrijesh/.gradle/daemon/9.1.0/com.safesound.app-main-65:/mipmap-xxxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.safesound.app-debug-63:/mipmap-xxhdpi_ic_launcher_foreground.webp.flat",
+        "source": "com.safesound.app-main-65:/mipmap-xxhdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "com.safesound.app-debug-63:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "com.safesound.app-main-65:/mipmap-xhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/Users/beingbrijesh/.gradle/daemon/9.1.0/com.safesound.app-debug-63:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/beingbrijesh/.gradle/daemon/9.1.0/com.safesound.app-main-65:/mipmap-xhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/Users/beingbrijesh/.gradle/daemon/9.1.0/com.safesound.app-debug-63:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "/Users/beingbrijesh/.gradle/daemon/9.1.0/com.safesound.app-main-65:/mipmap-xxxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/Users/beingbrijesh/.gradle/daemon/9.1.0/com.safesound.app-debug-63:/drawable_ic_launcher.xml.flat",
+        "source": "/Users/beingbrijesh/.gradle/daemon/9.1.0/com.safesound.app-main-65:/drawable/ic_launcher.xml"
+    },
+    {
+        "merged": "com.safesound.app-debug-63:/mipmap-hdpi_ic_launcher_foreground.webp.flat",
+        "source": "com.safesound.app-main-65:/mipmap-hdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "com.safesound.app-debug-63:/mipmap-xhdpi_ic_launcher_foreground.webp.flat",
+        "source": "com.safesound.app-main-65:/mipmap-xhdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "/Users/beingbrijesh/.gradle/daemon/9.1.0/com.safesound.app-debug-63:/mipmap-xxxhdpi_ic_launcher_foreground.webp.flat",
+        "source": "/Users/beingbrijesh/.gradle/daemon/9.1.0/com.safesound.app-main-65:/mipmap-xxxhdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "/Users/beingbrijesh/.gradle/daemon/9.1.0/com.safesound.app-debug-63:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "/Users/beingbrijesh/.gradle/daemon/9.1.0/com.safesound.app-main-65:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.safesound.app-debug-63:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "com.safesound.app-main-65:/mipmap-xxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.safesound.app-debug-63:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "com.safesound.app-main-65:/mipmap-xhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.safesound.app-debug-63:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.safesound.app-main-65:/mipmap-xxxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/Users/beingbrijesh/.gradle/daemon/9.1.0/com.safesound.app-debug-63:/mipmap-xxhdpi_ic_launcher_foreground.webp.flat",
+        "source": "/Users/beingbrijesh/.gradle/daemon/9.1.0/com.safesound.app-main-65:/mipmap-xxhdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "/Users/beingbrijesh/.gradle/daemon/9.1.0/com.safesound.app-debug-63:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/beingbrijesh/.gradle/daemon/9.1.0/com.safesound.app-main-65:/mipmap-xxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.safesound.app-debug-63:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "com.safesound.app-main-65:/mipmap-xxxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/Users/beingbrijesh/.gradle/daemon/9.1.0/com.safesound.app-debug-63:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/beingbrijesh/.gradle/daemon/9.1.0/com.safesound.app-main-65:/mipmap-hdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/Users/beingbrijesh/.gradle/daemon/9.1.0/com.safesound.app-debug-63:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "/Users/beingbrijesh/.gradle/daemon/9.1.0/com.safesound.app-main-65:/mipmap-hdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/Users/beingbrijesh/.gradle/daemon/9.1.0/com.safesound.app-debug-63:/mipmap-hdpi_ic_launcher_foreground.webp.flat",
+        "source": "/Users/beingbrijesh/.gradle/daemon/9.1.0/com.safesound.app-main-65:/mipmap-hdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "/Users/beingbrijesh/.gradle/daemon/9.1.0/com.safesound.app-debug-63:/mipmap-xhdpi_ic_launcher_foreground.webp.flat",
+        "source": "/Users/beingbrijesh/.gradle/daemon/9.1.0/com.safesound.app-main-65:/mipmap-xhdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "/Users/beingbrijesh/.gradle/daemon/9.1.0/com.safesound.app-debug-63:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "/Users/beingbrijesh/.gradle/daemon/9.1.0/com.safesound.app-main-65:/mipmap-mdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/Users/beingbrijesh/.gradle/daemon/9.1.0/com.safesound.app-debug-63:/mipmap-mdpi_ic_launcher_foreground.webp.flat",
+        "source": "/Users/beingbrijesh/.gradle/daemon/9.1.0/com.safesound.app-main-65:/mipmap-mdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "com.safesound.app-debug-63:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "com.safesound.app-main-65:/mipmap-mdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.safesound.app-debug-63:/mipmap-mdpi_ic_launcher_foreground.webp.flat",
+        "source": "com.safesound.app-main-65:/mipmap-mdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "/Users/beingbrijesh/.gradle/daemon/9.1.0/com.safesound.app-debug-63:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "/Users/beingbrijesh/.gradle/daemon/9.1.0/com.safesound.app-main-65:/mipmap-mdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.safesound.app-debug-63:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "com.safesound.app-main-65:/mipmap-mdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/Users/beingbrijesh/.gradle/daemon/9.1.0/com.safesound.app-debug-63:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "/Users/beingbrijesh/.gradle/daemon/9.1.0/com.safesound.app-main-65:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "/Users/beingbrijesh/.gradle/daemon/9.1.0/com.safesound.app-debug-63:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "/Users/beingbrijesh/.gradle/daemon/9.1.0/com.safesound.app-main-65:/mipmap-xxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.safesound.app-debug-63:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.safesound.app-main-65:/mipmap-xxhdpi/ic_launcher_round.webp"
     }
 ]

@@ -180,9 +180,9 @@ MERGED from [org.tensorflow:tensorflow-lite-api:2.16.1] /Users/beingbrijesh/.gra
 	android:label
 		ADDED from /Users/beingbrijesh/Documents/New project/app/src/main/AndroidManifest.xml:16:9-41
 	android:roundIcon
-		ADDED from /Users/beingbrijesh/Documents/New project/app/src/main/AndroidManifest.xml:18:9-50
+		ADDED from /Users/beingbrijesh/Documents/New project/app/src/main/AndroidManifest.xml:18:9-54
 	android:icon
-		ADDED from /Users/beingbrijesh/Documents/New project/app/src/main/AndroidManifest.xml:17:9-45
+		ADDED from /Users/beingbrijesh/Documents/New project/app/src/main/AndroidManifest.xml:17:9-43
 	android:theme
 		ADDED from /Users/beingbrijesh/Documents/New project/app/src/main/AndroidManifest.xml:21:9-47
 	android:usesCleartextTraffic
