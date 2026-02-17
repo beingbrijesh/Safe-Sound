@@ -120,6 +120,17 @@ class ListeningMonitor(
     }
 
     private suspend fun sampleTick() {
+        val activeConfigsNow = getActivePlaybackConfigsSafely()
+        if (activeConfigsNow.isEmpty()) {
+            if (playbackState.active) {
+                playbackState = PlaybackInfo.inactive()
+                listeningRepository.updatePlaybackInfo(playbackState)
+            }
+            stopSampling()
+            endSessionIfActive()
+            return
+        }
+
         val device = detectCurrentDevice()
         if (device == null) {
             if (currentDevice != null) {
@@ -163,6 +174,18 @@ class ListeningMonitor(
                 startTimeMillis = now,
                 volumes = mutableListOf()
             )
+        }
+    }
+
+    private fun getActivePlaybackConfigsSafely(): List<AudioPlaybackConfiguration> {
+        return try {
+            audioManager.activePlaybackConfigurations.orEmpty().filter { config ->
+                isConfigActive(config)
+            }
+        } catch (_: SecurityException) {
+            emptyList()
+        } catch (_: Exception) {
+            emptyList()
         }
     }
 

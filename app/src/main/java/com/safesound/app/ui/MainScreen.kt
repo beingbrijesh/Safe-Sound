@@ -135,7 +135,7 @@ fun MainScreen(
                     style = MaterialTheme.typography.bodyMedium
                 )
                 Text(
-                    text = "Updates every few seconds while monitoring is active.",
+                    text = "WHO/ITU daily equivalent. Updates every few seconds while monitoring is active.",
                     style = MaterialTheme.typography.bodySmall
                 )
             }
@@ -273,8 +273,10 @@ fun MainScreen(
 
 private fun formatPercent(value: Double): String {
     if (value <= 0.0) return "0%"
-    if (value < 0.1) return "<0.1%"
-    return String.format(Locale.US, "%.1f%%", value)
+    if (value < 0.01) return "<0.01%"
+    if (value < 1.0) return String.format(Locale.US, "%.2f%%", value)
+    if (value < 10.0) return String.format(Locale.US, "%.1f%%", value)
+    return String.format(Locale.US, "%.0f%%", value)
 }
 
 private fun formatDouble(value: Double): String {

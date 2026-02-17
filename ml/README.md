@@ -44,7 +44,7 @@ Output:
 ## 4) Generate synthetic pretraining rows
 
 ```bash
-python ml/scripts/generate_pretrain_data.py --rows 300000
+python ml/scripts/generate_pretrain_data.py --rows 300000 --window-days 1
 ```
 
 Output:
@@ -55,6 +55,9 @@ Feature order (must stay fixed):
 2. `totalDurationMinutes`
 3. `averageDb`
 4. `dosePercent`
+
+`--window-days 1` matches the app's daily-safe-limit UI.
+Use `--window-days 7` only if you switch app UI and logic to weekly dose.
 
 ## 5) Train model + export TFLite
 

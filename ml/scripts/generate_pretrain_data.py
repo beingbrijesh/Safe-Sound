@@ -55,7 +55,7 @@ def estimate_dba(
 def build_multiplier_label(
     dba: np.ndarray,
     duration_minutes: np.ndarray,
-    weekly_after_dose: np.ndarray,
+    window_after_dose: np.ndarray,
     mode: np.ndarray,
     rng: np.random.Generator,
 ) -> np.ndarray:
@@ -66,8 +66,8 @@ def build_multiplier_label(
     mult += np.where(duration_minutes >= 30, 0.05, 0.0)
     mult += np.where(duration_minutes >= 60, 0.08, 0.0)
     mult += np.where(duration_minutes >= 120, 0.15, 0.0)
-    mult += np.where(weekly_after_dose >= 100, 0.18, 0.0)
-    mult += np.where(weekly_after_dose >= 150, 0.25, 0.0)
+    mult += np.where(window_after_dose >= 100, 0.18, 0.0)
+    mult += np.where(window_after_dose >= 150, 0.25, 0.0)
     mult += np.where(mode == "MODE2", 0.10, 0.0)
     mult += rng.normal(0.0, 0.03, size=dba.shape[0])
     return np.clip(mult, 0.5, 2.0)
@@ -105,6 +105,12 @@ def main() -> None:
         default=42,
         help="Random seed.",
     )
+    parser.add_argument(
+        "--window-days",
+        type=float,
+        default=1.0,
+        help="Dose reference window in days (default: 1.0 for daily UI). Use 7 for strict weekly.",
+    )
     args = parser.parse_args()
 
     project_root = args.project_root.resolve()
@@ -138,16 +144,18 @@ def main() -> None:
         rng=rng,
     )
 
-    safe_hours = safe_hours_h870(dba=dba, lref=lref)
+    window_days = max(0.25, min(7.0, float(args.window_days)))
+    safe_hours_week = safe_hours_h870(dba=dba, lref=lref)
+    safe_hours = safe_hours_week * (window_days / 7.0)
     dose_percent = np.clip((duration_minutes / 60.0) / safe_hours * 100.0, 0.0, 250.0)
 
-    weekly_before = rng.uniform(0.0, 120.0, size=args.rows)
-    weekly_after = weekly_before + dose_percent
+    window_before = rng.uniform(0.0, 120.0 if window_days >= 7 else 70.0, size=args.rows)
+    window_after = window_before + dose_percent
 
     target_multiplier = build_multiplier_label(
         dba=dba,
         duration_minutes=duration_minutes,
-        weekly_after_dose=weekly_after,
+        window_after_dose=window_after,
         mode=mode,
         rng=rng,
     )
@@ -160,8 +168,9 @@ def main() -> None:
             "dosePercent": np.round(dose_percent, 5),
             "targetMultiplier": np.round(target_multiplier, 5),
             "mode": mode,
-            "weeklyDoseBefore": np.round(weekly_before, 5),
-            "weeklyDoseAfter": np.round(weekly_after, 5),
+            "windowDays": window_days,
+            "windowDoseBefore": np.round(window_before, 5),
+            "windowDoseAfter": np.round(window_after, 5),
             "deviceType": sampled["device_type"].astype(str),
             "brand": sampled["brand"].astype(str),
             "model": sampled["model"].astype(str),
@@ -178,4 +187,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
