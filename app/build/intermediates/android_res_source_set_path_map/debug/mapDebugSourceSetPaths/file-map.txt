@@ -1,0 +1,66 @@
+com.safesound.app-lifecycle-livedata-2.7.0-0 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/01f992e3cb6788b5982195edfa11cadf/transformed/lifecycle-livedata-2.7.0/res
+com.safesound.app-lifecycle-viewmodel-ktx-2.7.0-1 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/06714a98fd6950117b541a07f3336bfc/transformed/lifecycle-viewmodel-ktx-2.7.0/res
+com.safesound.app-activity-compose-1.9.0-2 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/0d41ce88f37a9a0819985390fdc3278b/transformed/activity-compose-1.9.0/res
+com.safesound.app-startup-runtime-1.1.1-3 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/1126f4a1443b82235bbab2f70b0b232c/transformed/startup-runtime-1.1.1/res
+com.safesound.app-ui-geometry-release-4 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/139fd1b49294e657d6b58fc1438d023d/transformed/ui-geometry-release/res
+com.safesound.app-ui-unit-release-5 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/161866d4408118f0c58a8f58134299da/transformed/ui-unit-release/res
+com.safesound.app-material3-release-6 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/17004499db23c7d5854b50b69aa5f6b6/transformed/material3-release/res
+com.safesound.app-lifecycle-livedata-core-ktx-2.7.0-7 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/1947ea70ba3c9739bc90762d37461230/transformed/lifecycle-livedata-core-ktx-2.7.0/res
+com.safesound.app-material-release-8 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/1aadbda94eda71066a52cd6077bbe14e/transformed/material-release/res
+com.safesound.app-cardview-1.0.0-9 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/1df2c18d18b619632737fd6a71ff0156/transformed/cardview-1.0.0/res
+com.safesound.app-appcompat-1.6.1-10 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/1e471504d63e952df399ba7b5c7abf9b/transformed/appcompat-1.6.1/res
+com.safesound.app-core-runtime-2.2.0-11 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/1f4107acbc0980b515224a959f2a2db4/transformed/core-runtime-2.2.0/res
+com.safesound.app-emoji2-views-helper-1.3.0-12 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/202e4de7e214939212732beb6673162a/transformed/emoji2-views-helper-1.3.0/res
+com.safesound.app-lifecycle-service-2.7.0-13 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/239a49c3803483e0b0d103c5a9ca010c/transformed/lifecycle-service-2.7.0/res
+com.safesound.app-viewpager2-1.0.0-14 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/24dac48845bee8fbf2395c7ef35080d4/transformed/viewpager2-1.0.0/res
+com.safesound.app-lifecycle-livedata-core-2.7.0-15 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/2f8b5023d5b92a7e5e66bf78831566e5/transformed/lifecycle-livedata-core-2.7.0/res
+com.safesound.app-runtime-saveable-release-16 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/2fcf1dcf3e61203a97bbf15746cf5e5c/transformed/runtime-saveable-release/res
+com.safesound.app-activity-1.9.0-17 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/35f6bd82a82549ef0aecc4078c8b908c/transformed/activity-1.9.0/res
+com.safesound.app-coordinatorlayout-1.1.0-18 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/3caeda7e8e674726ca3be65cb549f443/transformed/coordinatorlayout-1.1.0/res
+com.safesound.app-lifecycle-runtime-ktx-2.7.0-19 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/3e58f0d09e9048f1a1ea49f6d53fccc7/transformed/lifecycle-runtime-ktx-2.7.0/res
+com.safesound.app-ui-text-release-20 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/42e77336f870b75a64a5588579baab08/transformed/ui-text-release/res
+com.safesound.app-lifecycle-viewmodel-savedstate-2.7.0-21 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/477d6e6508b480d6ac0aa33987530d4c/transformed/lifecycle-viewmodel-savedstate-2.7.0/res
+com.safesound.app-recyclerview-1.1.0-22 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/4ed0108cfdc310f6bfcac15342fcd661/transformed/recyclerview-1.1.0/res
+com.safesound.app-material-1.12.0-23 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/50bffe10d2b969fcc611d892de0963c3/transformed/material-1.12.0/res
+com.safesound.app-customview-poolingcontainer-1.0.0-24 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/5c33c8be58080218a3eb876c37e36c22/transformed/customview-poolingcontainer-1.0.0/res
+com.safesound.app-activity-ktx-1.9.0-25 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/5d20a9d9f69579b6ff69215b45b1a722/transformed/activity-ktx-1.9.0/res
+com.safesound.app-foundation-layout-release-26 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/5def38a50251dc58d174bae08e1ee249/transformed/foundation-layout-release/res
+com.safesound.app-emoji2-1.3.0-27 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/5e942f29434328ca1683830099d16b6f/transformed/emoji2-1.3.0/res
+com.safesound.app-core-ktx-1.13.1-28 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/61d9bcf0ac35f024d2e20da22747d317/transformed/core-ktx-1.13.1/res
+com.safesound.app-animation-release-29 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/65610b7a1fbde843098bf2cde0dd07fc/transformed/animation-release/res
+com.safesound.app-lifecycle-process-2.7.0-30 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/68ed3d3a8bdeed34c75df08d44dce0b3/transformed/lifecycle-process-2.7.0/res
+com.safesound.app-ui-tooling-release-31 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/6ce152bc37de78b2ac1c2dd348c9190e/transformed/ui-tooling-release/res
+com.safesound.app-savedstate-ktx-1.2.1-32 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/7295a74d48ff1c69d6c51398103954ce/transformed/savedstate-ktx-1.2.1/res
+com.safesound.app-ui-util-release-33 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/77350fafb8d848ab4d07a17c3a41e155/transformed/ui-util-release/res
+com.safesound.app-runtime-release-34 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/7aa76d490b2e5a3b159519801b9f3676/transformed/runtime-release/res
+com.safesound.app-foundation-release-35 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/816f4118dd96ac88eefd8ad77329479c/transformed/foundation-release/res
+com.safesound.app-animation-core-release-36 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/8be6ae0e8274e03eeebcb6fedad171a9/transformed/animation-core-release/res
+com.safesound.app-datastore-release-37 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/9099bd6b522b54cabd74bff760d3a3ea/transformed/datastore-release/res
+com.safesound.app-savedstate-1.2.1-38 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/97b2f2dac23d3cb064d9f1f41499201a/transformed/savedstate-1.2.1/res
+com.safesound.app-ui-graphics-release-39 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/9ad671400ff117976f6bbdf1e0764473/transformed/ui-graphics-release/res
+com.safesound.app-material-icons-core-release-40 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/9c27c600598ec28a2bbb5a7d3d29e130/transformed/material-icons-core-release/res
+com.safesound.app-annotation-experimental-1.5.0-41 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/ace3f5b9de9c4de1522e8f1c6796ce77/transformed/annotation-experimental-1.5.0/res
+com.safesound.app-drawerlayout-1.1.1-42 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/ad3eb104e1e2739773bb465f9783e090/transformed/drawerlayout-1.1.1/res
+com.safesound.app-ui-tooling-data-release-43 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/b131244c3bf9311d1ef0d7b791187593/transformed/ui-tooling-data-release/res
+com.safesound.app-ui-tooling-preview-release-44 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/b67f2842e7f6f5312cfc242959a1c892/transformed/ui-tooling-preview-release/res
+com.safesound.app-lifecycle-runtime-2.7.0-45 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/b7ef6d94177772a4cf0d67cbd164ea00/transformed/lifecycle-runtime-2.7.0/res
+com.safesound.app-ui-release-46 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/b92fb6fa0afefbdb7b02505033b938dc/transformed/ui-release/res
+com.safesound.app-work-runtime-2.9.0-47 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/bc836f34ba819184d3525b983a3b7f6d/transformed/work-runtime-2.9.0/res
+com.safesound.app-appcompat-resources-1.6.1-48 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/c60b2dff7de3a94b74945173181a65c1/transformed/appcompat-resources-1.6.1/res
+com.safesound.app-fragment-1.3.6-49 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/c6df18a571c837b39f3627c1061e64d8/transformed/fragment-1.3.6/res
+com.safesound.app-datastore-core-release-50 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/c9442c8fc50f91b56402848f2c7757f7/transformed/datastore-core-release/res
+com.safesound.app-room-ktx-2.8.4-51 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/cda9f43433ef5dfa2c112b017ee57254/transformed/room-ktx-2.8.4/res
+com.safesound.app-profileinstaller-1.3.1-52 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/d428c69671f742c8355a8b9203a06663/transformed/profileinstaller-1.3.1/res
+com.safesound.app-constraintlayout-2.0.1-53 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/d74a799ecb4aea3cf648564438aacd9e/transformed/constraintlayout-2.0.1/res
+com.safesound.app-transition-1.5.0-54 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/df654ac21a8a414da369d52e346344e7/transformed/transition-1.5.0/res
+com.safesound.app-work-runtime-ktx-2.9.0-55 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/ebb40fe4bb94f7d1856d293e5a87789e/transformed/work-runtime-ktx-2.9.0/res
+com.safesound.app-core-1.13.1-56 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/f4108bd8ef90dbbcab8e74f360104ff9/transformed/core-1.13.1/res
+com.safesound.app-lifecycle-viewmodel-2.7.0-57 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/f9381927183fd9652e4af42aaf4d7c11/transformed/lifecycle-viewmodel-2.7.0/res
+com.safesound.app-material-ripple-release-58 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/fc042d6c5272614eef61afb940e101c9/transformed/material-ripple-release/res
+com.safesound.app-datastore-preferences-release-59 /Users/beingbrijesh/.gradle/caches/9.1.0/transforms/fe6d536ce0f36a455a101a3d728e1b18/transformed/datastore-preferences-release/res
+com.safesound.app-updated_navigation_xml-60 /Users/beingbrijesh/Documents/New project/app/build/generated/updated_navigation_xml/debug
+com.safesound.app-packageDebugResources-61 /Users/beingbrijesh/Documents/New project/app/build/intermediates/incremental/debug/packageDebugResources/merged.dir
+com.safesound.app-packageDebugResources-62 /Users/beingbrijesh/Documents/New project/app/build/intermediates/incremental/debug/packageDebugResources/stripped.dir
+com.safesound.app-debug-63 /Users/beingbrijesh/Documents/New project/app/build/intermediates/merged_res/debug/mergeDebugResources
+com.safesound.app-debug-64 /Users/beingbrijesh/Documents/New project/app/src/debug/res
+com.safesound.app-main-65 /Users/beingbrijesh/Documents/New project/app/src/main/res

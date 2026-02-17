@@ -1,0 +1,4 @@
+com.safesound.app
+drawable ic_launcher
+string app_name
+style Theme_SafeSound
