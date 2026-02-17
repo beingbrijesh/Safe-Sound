@@ -60,18 +60,27 @@ class ListeningRepository(
             if (sessions.isEmpty()) {
                 0.0
             } else {
-                val baseRisk = sessions.sumOf { it.dosePercent }
-                val avgDb = sessions.map { it.estimatedDb }.average()
-                val totalMinutes = sessions.sumOf { (it.endTimeMillis - it.startTimeMillis).toDouble() / 60000.0 }
-                val avgVolume = sessions.map { it.averageVolume }.average()
-                val features = floatArrayOf(
-                    avgDb.toFloat(),
-                    totalMinutes.toFloat(),
-                    avgVolume.toFloat(),
-                    baseRisk.toFloat()
-                )
-                val multiplier = riskModel.predictMultiplier(features) ?: 1.0f
-                (baseRisk * multiplier).coerceAtMost(200.0)
+                val weightedDurations = sessions.map { session ->
+                    ((session.endTimeMillis - session.startTimeMillis).toDouble() / 60000.0)
+                        .coerceAtLeast(0.0)
+                }
+                val totalMinutes = weightedDurations.sum().coerceAtLeast(0.0001)
+                val dosePercent = sessions.sumOf { it.dosePercent }.coerceAtLeast(0.0)
+                val weightedVolume = sessions.zip(weightedDurations).sumOf { (session, minutes) ->
+                    session.averageVolume * minutes
+                } / totalMinutes
+                val weightedDb = sessions.zip(weightedDurations).sumOf { (session, minutes) ->
+                    session.estimatedDb * minutes
+                } / totalMinutes
+
+                riskModel.predictRiskPercent(
+                    RiskModel.RiskFeatures(
+                        averageVolumeFraction = weightedVolume,
+                        totalDurationMinutes = totalMinutes,
+                        averageDb = weightedDb,
+                        dosePercent = dosePercent
+                    )
+                ).coerceIn(0.0, 200.0)
             }
         }
     }
@@ -96,8 +105,8 @@ class ListeningRepository(
         )
     }
 
-    suspend fun resolveSpecsForDevice(device: DeviceState) {
-        specRepository.resolveAndCacheDevice(device)
+    suspend fun resolveSpecsForDevice(device: DeviceState, forceRefresh: Boolean = false) {
+        specRepository.resolveAndCacheDevice(device, forceRefresh)
     }
 
     suspend fun updatePlaybackInfo(info: PlaybackInfo) {

@@ -18,6 +18,7 @@ export type SpecResult = {
   powerMw?: number;
   sourceName?: string;
   sourceUrl?: string;
+  inferredFields?: string[];
   verified: boolean;
 };
 
@@ -44,6 +45,15 @@ const knownBrands = Array.from(new Set(allCatalogs.map((spec) => normalize(spec.
 const MIN_CONFIDENCE_SCORE = 400;
 const TRUSTED_MIN_SCORE = 0.75;
 const CACHE_TTL_DAYS = Number(process.env.SPEC_CACHE_TTL_DAYS || "30");
+const NUMERIC_FIELDS = [
+  "driverSizeMm",
+  "frequencyLowHz",
+  "frequencyHighHz",
+  "impedanceOhm",
+  "sensitivityDb",
+  "powerMw",
+] as const;
+type NumericField = (typeof NUMERIC_FIELDS)[number];
 const FILLABLE_FIELDS: Array<Exclude<keyof SpecResult, "verified">> = [
   "brand",
   "model",
@@ -56,6 +66,8 @@ const FILLABLE_FIELDS: Array<Exclude<keyof SpecResult, "verified">> = [
   "sourceName",
   "sourceUrl",
 ];
+const MIN_INFERENCE_SAMPLES = 2;
+const MAX_INFERENCE_RELATIVE_SPREAD = 0.2;
 
 function readJsonFile<T>(filePath: string, fallback: T): T {
   try {
@@ -176,6 +188,148 @@ function mergeMissing(target: Partial<SpecResult>, source: CatalogSpec): void {
   }
 }
 
+function isTrustedCatalogRecord(spec: CatalogSpec): boolean {
+  if (isOfficialSource(spec.sourceUrl)) return true;
+  if (isCromaSource(spec.sourceUrl)) return true;
+  return isTrustedFallbackSource(spec);
+}
+
+function inferCategory(text: string): "earbuds" | "headphones" | "unknown" {
+  const normalized = normalize(text);
+  if (
+    /\b(buds|earbuds|ear pods|earphones|tws|in ear|in-ear|neckband|true wireless)\b/.test(
+      normalized
+    )
+  ) {
+    return "earbuds";
+  }
+  if (
+    /\b(headphone|headphones|over ear|over-ear|on ear|on-ear|wireless headset)\b/.test(
+      normalized
+    )
+  ) {
+    return "headphones";
+  }
+  return "unknown";
+}
+
+function isCategoryMatch(spec: CatalogSpec, expected: "earbuds" | "headphones" | "unknown"): boolean {
+  if (expected === "unknown") return true;
+  const specCategory = inferCategory(`${spec.brand} ${spec.model} ${(spec.aliases ?? []).join(" ")}`);
+  return specCategory === expected;
+}
+
+function median(values: number[]): number {
+  const sorted = [...values].sort((left, right) => left - right);
+  const mid = Math.floor(sorted.length / 2);
+  return sorted.length % 2 === 0
+    ? (sorted[mid - 1] + sorted[mid]) / 2
+    : sorted[mid];
+}
+
+function isFieldValuePlausible(field: NumericField, value: number): boolean {
+  switch (field) {
+    case "driverSizeMm":
+      return value >= 4 && value <= 70;
+    case "frequencyLowHz":
+      return value >= 1 && value <= 200;
+    case "frequencyHighHz":
+      return value >= 5000 && value <= 100000;
+    case "impedanceOhm":
+      return value >= 8 && value <= 600;
+    case "sensitivityDb":
+      return value >= 70 && value <= 130;
+    case "powerMw":
+      return value >= 1 && value <= 5000;
+    default:
+      return false;
+  }
+}
+
+function collectInferenceCandidates(
+  queryNormalized: string,
+  queryTokens: string[],
+  requestedBrand: string | null,
+  merged: Partial<SpecResult>,
+  field: NumericField
+): number[] {
+  const inferredCategory = inferCategory(
+    `${queryNormalized} ${merged.brand ?? ""} ${merged.model ?? ""}`
+  );
+
+  const candidates: Array<{ value: number; score: number }> = [];
+  for (const spec of allCatalogs) {
+    if (!isTrustedCatalogRecord(spec)) continue;
+    if (!isCategoryMatch(spec, inferredCategory)) continue;
+    const rawValue = spec[field];
+    if (typeof rawValue !== "number") continue;
+    if (!isFieldValuePlausible(field, rawValue)) continue;
+
+    const specBrandNormalized = normalize(spec.brand);
+    const mergedBrandNormalized = normalize(String(merged.brand ?? ""));
+    if (
+      requestedBrand &&
+      specBrandNormalized !== requestedBrand &&
+      mergedBrandNormalized.length > 0 &&
+      specBrandNormalized !== mergedBrandNormalized
+    ) {
+      continue;
+    }
+
+    let score = scoreSpec(queryNormalized, queryTokens, spec);
+    if (mergedBrandNormalized.length > 0 && specBrandNormalized === mergedBrandNormalized) {
+      score += 250;
+    }
+    if (requestedBrand && specBrandNormalized === requestedBrand) {
+      score += 250;
+    }
+    if (score < 250) continue;
+    candidates.push({ value: rawValue, score });
+  }
+
+  candidates.sort((left, right) => right.score - left.score);
+  return candidates.slice(0, 6).map((entry) => entry.value);
+}
+
+function inferMissingNumericFields(
+  queryNormalized: string,
+  queryTokens: string[],
+  requestedBrand: string | null,
+  merged: Partial<SpecResult>
+): string[] {
+  const inferredFields: string[] = [];
+
+  for (const field of NUMERIC_FIELDS) {
+    if (!isMissing(merged[field])) continue;
+
+    const values = collectInferenceCandidates(
+      queryNormalized,
+      queryTokens,
+      requestedBrand,
+      merged,
+      field
+    );
+    if (values.length < MIN_INFERENCE_SAMPLES) continue;
+
+    const min = Math.min(...values);
+    const max = Math.max(...values);
+    const mid = median(values);
+    if (!Number.isFinite(mid) || mid <= 0) continue;
+
+    const relativeSpread = (max - min) / mid;
+    if (relativeSpread > MAX_INFERENCE_RELATIVE_SPREAD) continue;
+
+    const rounded = field === "frequencyLowHz" || field === "frequencyHighHz"
+      ? Math.round(mid)
+      : Number(mid.toFixed(1));
+
+    merged[field] = rounded;
+    inferredFields.push(field);
+  }
+
+  return inferredFields;
+}
+
 function selectRequestedBrand(queryNormalized: string): string | null {
   const candidates = knownBrands
     .filter((brand) => queryNormalized.includes(brand))
@@ -237,6 +391,16 @@ export async function fetchOfficialSpecs(query: string): Promise<SpecResult | nu
 
   if (isMissing(merged.brand) && isMissing(merged.model)) return null;
 
+  const inferredFields = inferMissingNumericFields(
+    queryNormalized,
+    queryTokens,
+    requestedBrand,
+    merged
+  );
+  if (inferredFields.length > 0) {
+    sourcesUsed.push("Inference");
+  }
+
   const result: SpecResult = {
     brand: merged.brand,
     model: merged.model,
@@ -248,7 +412,8 @@ export async function fetchOfficialSpecs(query: string): Promise<SpecResult | nu
     powerMw: merged.powerMw,
     sourceName: sourcesUsed.length > 0 ? sourcesUsed.join(" + ") : "Unknown",
     sourceUrl: primaryUrl,
-    verified: true,
+    inferredFields,
+    verified: inferredFields.length === 0,
   };
 
   upsertSpecCache(queryNormalized, query, result);

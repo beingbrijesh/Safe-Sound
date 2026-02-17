@@ -33,18 +33,29 @@ class SpecRepository(
 
     fun observeLastSyncStatus(): Flow<String> = remoteClient.settingsRepository.observeLastSyncStatus()
 
-    suspend fun resolveAndCacheDevice(device: DeviceState): EarphoneSpecEntity? {
+    suspend fun resolveAndCacheDevice(
+        device: DeviceState,
+        forceRefresh: Boolean = false
+    ): EarphoneSpecEntity? {
         val normalizedName = DeviceNameParser.normalize(device.name)
+        val now = System.currentTimeMillis()
         val existingDevice = deviceDao.get(device.address)
         if (existingDevice?.specId != null) {
             val cachedSpec = earphoneSpecDao.getById(existingDevice.specId)
             if (cachedSpec != null && isSpecCompatible(normalizedName, cachedSpec)) {
-                return cachedSpec
+                val refreshed = refreshFromRemoteIfNeeded(
+                    device = device,
+                    displayName = normalizedName,
+                    existing = cachedSpec,
+                    nowMillis = now,
+                    forceRefresh = forceRefresh
+                )
+                return refreshed ?: cachedSpec
             }
             deviceDao.upsert(
                 existingDevice.copy(
                     name = device.name,
-                    lastSeenMillis = System.currentTimeMillis(),
+                    lastSeenMillis = now,
                     isConnected = device.isConnected,
                     specId = null
                 )
@@ -57,12 +68,19 @@ class SpecRepository(
                 BluetoothDeviceEntity(
                     address = device.address,
                     name = device.name,
-                    lastSeenMillis = System.currentTimeMillis(),
+                    lastSeenMillis = now,
                     isConnected = device.isConnected,
                     specId = specFromName.id
                 )
             )
-            return specFromName
+            val refreshed = refreshFromRemoteIfNeeded(
+                device = device,
+                displayName = normalizedName,
+                existing = specFromName,
+                nowMillis = now,
+                forceRefresh = forceRefresh
+            )
+            return refreshed ?: specFromName
         }
 
         val query = DeviceNameParser.buildQuery(device.name)
@@ -81,7 +99,7 @@ class SpecRepository(
                 sourceName = remote.sourceName,
                 sourceUrl = remote.sourceUrl,
                 verified = remote.verified,
-                lastFetchedMillis = System.currentTimeMillis(),
+                lastFetchedMillis = now,
                 calibrationOffsetDb = null
             )
             val newId = earphoneSpecDao.insert(specEntity)
@@ -89,7 +107,7 @@ class SpecRepository(
                 BluetoothDeviceEntity(
                     address = device.address,
                     name = device.name,
-                    lastSeenMillis = System.currentTimeMillis(),
+                    lastSeenMillis = now,
                     isConnected = device.isConnected,
                     specId = newId
                 )
@@ -101,9 +119,67 @@ class SpecRepository(
         }
 
         remoteClient.settingsRepository.setLastSyncStatus(
-            "No official specs found for ${device.name}"
+            "No trusted specs found for ${device.name}"
         )
         return null
+    }
+
+    private suspend fun refreshFromRemoteIfNeeded(
+        device: DeviceState,
+        displayName: String,
+        existing: EarphoneSpecEntity,
+        nowMillis: Long,
+        forceRefresh: Boolean
+    ): EarphoneSpecEntity? {
+        if (!shouldRefreshSpec(existing, nowMillis, forceRefresh)) return null
+        val query = DeviceNameParser.buildQuery(device.name)
+        val remote = remoteClient.lookup(query) ?: return null
+
+        val updated = existing.copy(
+            brand = remote.brand ?: existing.brand,
+            model = remote.model ?: existing.model,
+            displayName = displayName,
+            driverSizeMm = remote.driverSizeMm ?: existing.driverSizeMm,
+            frequencyLowHz = remote.frequencyLowHz ?: existing.frequencyLowHz,
+            frequencyHighHz = remote.frequencyHighHz ?: existing.frequencyHighHz,
+            impedanceOhm = remote.impedanceOhm ?: existing.impedanceOhm,
+            sensitivityDb = remote.sensitivityDb ?: existing.sensitivityDb,
+            powerMw = remote.powerMw ?: existing.powerMw,
+            sourceName = remote.sourceName ?: existing.sourceName,
+            sourceUrl = remote.sourceUrl ?: existing.sourceUrl,
+            verified = remote.verified || existing.verified,
+            lastFetchedMillis = nowMillis
+        )
+        earphoneSpecDao.update(updated)
+        remoteClient.settingsRepository.setLastSyncStatus(
+            "Refreshed ${device.name} on ${TimeUtils.formatNow()}"
+        )
+        return earphoneSpecDao.getById(updated.id)
+    }
+
+    private fun shouldRefreshSpec(
+        spec: EarphoneSpecEntity,
+        nowMillis: Long,
+        forceRefresh: Boolean
+    ): Boolean {
+        if (forceRefresh) return true
+        val ageMillis = nowMillis - spec.lastFetchedMillis
+        if (ageMillis < MIN_REFRESH_GAP_MS) return false
+        if (ageMillis > FORCE_REFRESH_AGE_MS) return true
+        if (spec.sourceUrl.isNullOrBlank()) return true
+        return populatedMetricCount(spec) < MIN_METRIC_COUNT
+    }
+
+    private fun populatedMetricCount(spec: EarphoneSpecEntity): Int {
+        val values = listOf(
+            spec.driverSizeMm,
+            spec.frequencyLowHz,
+            spec.frequencyHighHz,
+            spec.impedanceOhm,
+            spec.sensitivityDb,
+            spec.powerMw
+        )
+        return values.count { it != null }
     }
 
     private fun isSpecCompatible(deviceName: String, spec: EarphoneSpecEntity): Boolean {
@@ -124,5 +200,11 @@ class SpecRepository(
             .split(" ")
             .filter { it.length > 1 }
             .toSet()
+    }
+
+    private companion object {
+        const val MIN_METRIC_COUNT = 4
+        const val MIN_REFRESH_GAP_MS = 24L * 60L * 60L * 1000L
+        const val FORCE_REFRESH_AGE_MS = 30L * 24L * 60L * 60L * 1000L
     }
 }

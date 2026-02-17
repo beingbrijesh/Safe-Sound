@@ -153,19 +153,36 @@ class ListeningMonitor(
         }
 
         val volumeFraction = currentVolumeFraction()
+        val now = System.currentTimeMillis()
         activeSession?.volumes?.add(volumeFraction)
+
+        val session = activeSession
+        if (session != null && now - session.startTimeMillis >= RUNNING_CHUNK_SAVE_MS) {
+            persistSessionChunk(session, now, MIN_RUNNING_CHUNK_MINUTES)
+            activeSession = session.copy(
+                startTimeMillis = now,
+                volumes = mutableListOf()
+            )
+        }
     }
 
     private suspend fun endSessionIfActive() {
         val session = activeSession ?: return
         val endTime = System.currentTimeMillis()
-        val durationMinutes = (endTime - session.startTimeMillis).toDouble() / 60000.0
-        if (durationMinutes <= 0.5) {
-            activeSession = null
-            return
-        }
+        persistSessionChunk(session, endTime, MIN_FINAL_CHUNK_MINUTES)
+        activeSession = null
+    }
 
-        val avgVolume = if (session.volumes.isNotEmpty()) session.volumes.average() else 0.0
+    private suspend fun persistSessionChunk(
+        session: ActiveSession,
+        endTimeMillis: Long,
+        minimumDurationMinutes: Double
+    ) {
+        val durationMinutes = (endTimeMillis - session.startTimeMillis).toDouble() / 60000.0
+        if (durationMinutes <= minimumDurationMinutes) return
+        if (session.volumes.isEmpty()) return
+
+        val avgVolume = session.volumes.average()
         val estimatedDb = listeningRepository.estimateDbFromVolume(avgVolume, null)
         val dosePercent = listeningRepository.calculateDosePercent(estimatedDb, durationMinutes)
 
@@ -177,13 +194,12 @@ class ListeningMonitor(
                 sourceApp = session.sourceApp,
                 sourcePackage = session.sourcePackage,
                 startTimeMillis = session.startTimeMillis,
-                endTimeMillis = endTime,
+                endTimeMillis = endTimeMillis,
                 averageVolume = avgVolume,
                 estimatedDb = estimatedDb,
                 dosePercent = dosePercent
             )
         )
-        activeSession = null
     }
 
     private suspend fun updateDeviceState() {
@@ -349,5 +365,8 @@ class ListeningMonitor(
     companion object {
         private const val SAMPLE_INTERVAL_MS = 3_000L
         private const val DEVICE_POLL_INTERVAL_MS = 30_000L
+        private const val RUNNING_CHUNK_SAVE_MS = 15_000L
+        private const val MIN_RUNNING_CHUNK_MINUTES = 0.08
+        private const val MIN_FINAL_CHUNK_MINUTES = 0.03
     }
 }

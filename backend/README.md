@@ -6,6 +6,7 @@ Priority order:
 1. Official manufacturer catalog.
 2. Croma catalog for missing fields.
 3. Trusted third-party catalog for remaining missing fields (domain + trust score gated).
+4. Optional conservative inference for still-missing numeric fields (only when multiple trusted candidates agree within tight variance).
 
 ## Setup
 1. `npm install`
@@ -15,9 +16,14 @@ Priority order:
 - `/specs?query=...` accepts a device query string.
 - Matching is token-based with confidence thresholds to reduce false positives.
 - Fields are merged in priority order: official -> croma -> trusted fallback.
+- If numeric fields are still missing, backend attempts inference from trusted nearby matches only.
 - Trusted fallback records are accepted only when:
   - `sourceUrl` domain is listed in `data/trusted_domains.json`
   - `trustScore >= 0.75`
+- Inference is accepted only when:
+  - At least 2 trusted candidates exist for the field
+  - Relative spread is low (<= 20%)
+  - Value is in a plausible range for that metric
 
 Data files:
 - `data/spec_catalog.json`: official catalog.

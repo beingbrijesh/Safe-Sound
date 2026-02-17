@@ -18,6 +18,44 @@ class RiskModel(context: Context) {
         }
     }
 
+    data class RiskFeatures(
+        val averageVolumeFraction: Double,
+        val totalDurationMinutes: Double,
+        val averageDb: Double,
+        val dosePercent: Double
+    )
+
+    fun predictRiskPercent(features: RiskFeatures): Double {
+        val clampedVolume = features.averageVolumeFraction.coerceIn(0.0, 1.0)
+        val clampedDuration = features.totalDurationMinutes.coerceAtLeast(0.0)
+        val clampedDb = features.averageDb.coerceIn(40.0, 120.0)
+        val clampedDose = features.dosePercent.coerceAtLeast(0.0)
+
+        val fallbackRisk = clampedDose.coerceIn(0.0, 200.0)
+        val localInterpreter = interpreter ?: return fallbackRisk
+        val input = arrayOf(
+            floatArrayOf(
+                clampedVolume.toFloat(),
+                clampedDuration.toFloat(),
+                clampedDb.toFloat(),
+                clampedDose.toFloat()
+            )
+        )
+        val output = Array(1) { FloatArray(1) }
+        return try {
+            localInterpreter.run(input, output)
+            val raw = output[0][0].toDouble()
+            when {
+                raw.isNaN() || raw.isInfinite() -> fallbackRisk
+                raw in 0.2..4.0 -> (clampedDose * raw).coerceIn(0.0, 200.0)
+                raw in 0.0..200.0 -> raw
+                else -> fallbackRisk
+            }
+        } catch (_: Exception) {
+            fallbackRisk
+        }
+    }
+
     fun predictMultiplier(features: FloatArray): Float? {
         val localInterpreter = interpreter ?: return null
         val input = arrayOf(features)

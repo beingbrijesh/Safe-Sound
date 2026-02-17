@@ -37,6 +37,7 @@ class MainViewModel(
         val riskFlow = listeningRepository.observeTodayRiskPercent()
         val syncStatusFlow = specRepository.observeLastSyncStatus()
         val autoStartFlow = settingsRepository.observeAutoStartEnabled()
+        val batteryCardDismissedFlow = settingsRepository.observeBatteryCardDismissed()
         val playbackFlow = listeningRepository.observePlaybackInfo()
 
         combine(
@@ -46,6 +47,7 @@ class MainViewModel(
             riskFlow,
             syncStatusFlow,
             autoStartFlow,
+            batteryCardDismissedFlow,
             playbackFlow
         ) { values ->
             val device = values[0] as DeviceState?
@@ -54,7 +56,8 @@ class MainViewModel(
             val risk = values[3] as Double
             val syncStatus = values[4] as String
             val autoStart = values[5] as Boolean
-            val playbackInfo = values[6] as PlaybackInfo
+            val batteryCardDismissed = values[6] as Boolean
+            val playbackInfo = values[7] as PlaybackInfo
             MainUiState(
                 currentDevice = device,
                 currentSpec = spec,
@@ -62,6 +65,7 @@ class MainViewModel(
                 todayRiskPercent = risk,
                 lastSyncStatus = syncStatus,
                 autoStartEnabled = autoStart,
+                batteryCardDismissed = batteryCardDismissed,
                 playbackInfo = playbackInfo
             )
         }.stateIn(
@@ -74,6 +78,12 @@ class MainViewModel(
     fun setAutoStartEnabled(enabled: Boolean) {
         viewModelScope.launch {
             settingsRepository.setAutoStartEnabled(enabled)
+        }
+    }
+
+    fun setBatteryCardDismissed(dismissed: Boolean) {
+        viewModelScope.launch {
+            settingsRepository.setBatteryCardDismissed(dismissed)
         }
     }
 

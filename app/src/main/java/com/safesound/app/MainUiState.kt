@@ -11,5 +11,6 @@ data class MainUiState(
     val todayRiskPercent: Double = 0.0,
     val lastSyncStatus: String = "Not synced",
     val autoStartEnabled: Boolean = true,
+    val batteryCardDismissed: Boolean = false,
     val playbackInfo: PlaybackInfo = PlaybackInfo.inactive()
 )

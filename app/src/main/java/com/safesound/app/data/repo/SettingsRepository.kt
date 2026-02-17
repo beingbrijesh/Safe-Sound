@@ -20,6 +20,7 @@ class SettingsRepository(private val context: Context) {
     private val backendUrlKey = stringPreferencesKey("backend_url")
     private val lastSyncStatusKey = stringPreferencesKey("last_sync_status")
     private val autoStartEnabledKey = booleanPreferencesKey("auto_start_enabled")
+    private val batteryCardDismissedKey = booleanPreferencesKey("battery_card_dismissed")
     private val playbackActiveKey = booleanPreferencesKey("playback_active")
     private val playbackContentTypeKey = stringPreferencesKey("playback_content_type")
     private val playbackSourceAppKey = stringPreferencesKey("playback_source_app")
@@ -46,6 +47,18 @@ class SettingsRepository(private val context: Context) {
     suspend fun setAutoStartEnabled(enabled: Boolean) {
         dataStore.edit { prefs ->
             prefs[autoStartEnabledKey] = enabled
+        }
+    }
+
+    fun observeBatteryCardDismissed(): Flow<Boolean> {
+        return dataStore.data.map { prefs ->
+            prefs[batteryCardDismissedKey] ?: false
+        }
+    }
+
+    suspend fun setBatteryCardDismissed(dismissed: Boolean) {
+        dataStore.edit { prefs ->
+            prefs[batteryCardDismissedKey] = dismissed
         }
     }
 

@@ -48,7 +48,10 @@ class SpecSyncWorker(
                     isConnected = false
                 )
                 app.container.listeningRepository.updateDeviceState(state)
-                app.container.specRepository.resolveAndCacheDevice(state)
+                app.container.specRepository.resolveAndCacheDevice(
+                    state,
+                    forceRefresh = true
+                )
             }
             settings.setFirstSyncDone(true)
             settings.setLastSyncStatus(
