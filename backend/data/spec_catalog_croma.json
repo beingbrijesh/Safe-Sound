@@ -1,0 +1,16 @@
+[
+  {
+    "brand": "realme",
+    "model": "Buds T300",
+    "aliases": ["realme buds t300", "buds t300", "realme t300"],
+    "driverSizeMm": 12.4,
+    "frequencyLowHz": 20,
+    "frequencyHighHz": 20000,
+    "impedanceOhm": null,
+    "sensitivityDb": null,
+    "powerMw": null,
+    "sourceName": "Croma",
+    "sourceUrl": "https://www.croma.com/search/?text=realme%20buds%20t300",
+    "verified": true
+  }
+]

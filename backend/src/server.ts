@@ -19,7 +19,7 @@ app.get("/specs", async (req, res) => {
   try {
     const result = await fetchOfficialSpecs(query);
     if (!result) {
-      res.status(404).json({ error: "No official spec found" });
+      res.status(404).json({ error: "No spec found in trusted sources" });
       return;
     }
     res.json(result);
